@@ -14,19 +14,18 @@ pipeline {
                 sh "ls -la"
             }
         }
-        stage('install docker'){
-            steps {
-                sh "su -"
-                sh "apt-get update"
-                sh "apt-get install apt-transport-https ca-certificates curl software-properties-common"
-                sh "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg"
-//                 sh "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] 'https://download.docker.com/linux/ubuntu' $(lsb_release -cs) stable' | 'sudo tee '/etc/apt/sources.list.d/docker.list' > '/dev/null''"
-                sh "apt-get update"
-                sh "apt-cache policy docker-ce"
-                sh "apt-get install docker-ce"
-                sh "systemctl status docker"
-            }
+        stage('Install Docker') {
+          steps {
+            script {
+          // Install Docker
+          sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+          sh 'sh get-docker.sh'
+          
+          // Add Jenkins user to Docker group
+          sh 'sudo usermod -aG docker jenkins'
         }
+      }
+    }
         stage('build docker image'){
             steps {
                 sh "cd /var/jenkins_home/workspace/DemoPipeline/src"
