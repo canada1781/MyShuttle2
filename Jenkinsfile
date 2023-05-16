@@ -14,6 +14,12 @@ pipeline {
                 sh "ls -la"
             }
         }
+        stage('build docker image'){
+            steps {
+                sh "cd /var/jenkins_home/workspace/DemoPipeline/src"
+                sh "docker build -t first-image ."
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Testing..'
