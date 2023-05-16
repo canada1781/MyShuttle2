@@ -24,6 +24,7 @@ pipeline {
                 sh "apt-cache policy docker-ce"
                 sh "sudo apt install docker-ce"
                 sh "sudo systemctl status docker"
+            }
         }
         stage('build docker image'){
             steps {
