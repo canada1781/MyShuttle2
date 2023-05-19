@@ -17,7 +17,7 @@ pipeline {
         stage('build docker image'){
             steps {
                 sh "cd /var/lib/jenkins/workspace/Demopipeline2/src"
-                sh "docker build -t first-image ."
+                sh " sudo docker build -t first-image ."
             }
         }
         stage('Test') {
