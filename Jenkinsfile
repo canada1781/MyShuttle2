@@ -14,18 +14,6 @@ pipeline {
                 sh "ls -la"
             }
         }
-        stage('Install Docker') {
-          steps {
-            script {
-          // Install Docker
-          sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-          sh 'sh get-docker.sh'
-          
-          // Add Jenkins user to Docker group
-          sh 'sudo usermod -aG docker jenkins'
-        }
-      }
-    }
         stage('build docker image'){
             steps {
                 sh "cd /var/jenkins_home/workspace/DemoPipeline/src"
